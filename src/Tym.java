@@ -1,0 +1,61 @@
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Tym {
+    private int num;
+    private String name;
+    private List<Ucastnik> seznamPanicu =  new ArrayList<>();
+    private BigDecimal cena;
+    private LocalDate datumRegistrace;
+
+    public Tym(int num, String name, List<Ucastnik> seznamPanicu, BigDecimal cena, LocalDate datumRegistrace) {
+        Main man = new Main();
+        this.num = num;
+        this.name = name;
+        this.seznamPanicu = seznamPanicu;
+        this.cena = man.vychoziCenaTurnaje;
+        this.datumRegistrace = LocalDate.now();
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Ucastnik> getSeznamPanicu() {
+        return seznamPanicu;
+    }
+
+    public void setSeznamPanicu(List<Ucastnik> seznamPanicu) {
+        this.seznamPanicu = seznamPanicu;
+    }
+
+    public BigDecimal getCena() {
+        return cena;
+    }
+
+    public void setCena(BigDecimal cena) {
+        this.cena = cena;
+    }
+
+    public LocalDate getDatumRegistrace() {
+        return datumRegistrace;
+    }
+
+    public void setDatumRegistrace(LocalDate datumRegistrace) {
+        this.datumRegistrace = datumRegistrace;
+    }
+}
