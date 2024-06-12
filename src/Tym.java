@@ -6,15 +6,15 @@ import java.util.List;
 public class Tym {
     private int num;
     private String name;
-    private List<Ucastnik> seznamPanicu =  new ArrayList<>();
+    private List<Ucastnik> seznamUcastniku =  new ArrayList<>();
     private BigDecimal cena;
     private LocalDate datumRegistrace;
 
-    public Tym(int num, String name, List<Ucastnik> seznamPanicu, BigDecimal cena, LocalDate datumRegistrace) {
+    public Tym(int num, String name, List<Ucastnik> seznamUcastniku, BigDecimal cena, LocalDate datumRegistrace) {
         Main man = new Main();
         this.num = num;
         this.name = name;
-        this.seznamPanicu = seznamPanicu;
+        this.seznamUcastniku = seznamUcastniku;
         this.cena = man.vychoziCenaTurnaje;
         this.datumRegistrace = LocalDate.now();
     }
@@ -35,12 +35,12 @@ public class Tym {
         this.name = name;
     }
 
-    public List<Ucastnik> getSeznamPanicu() {
-        return seznamPanicu;
+    public List<Ucastnik> getSeznamUcastniku() {
+        return seznamUcastniku;
     }
 
-    public void setSeznamPanicu(List<Ucastnik> seznamPanicu) {
-        this.seznamPanicu = seznamPanicu;
+    public void setSeznamUcastniku(List<Ucastnik> seznamUcastniku) {
+        this.seznamUcastniku = seznamUcastniku;
     }
 
     public BigDecimal getCena() {

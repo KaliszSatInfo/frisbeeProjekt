@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.AbstractTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +27,27 @@ public class UcastniciForm extends JFrame {
 
         JMenuItem load = new JMenuItem("Načti");
         mbar.add(load);
-        load.addActionListener(_-> loadFile());
+        load.addActionListener(e-> {
+          loadFile();
+          readFile(selectedFile);
+          renderTable();
+        });
 
         JMenuItem writeIntoFile = new JMenuItem("Ulož");
         mbar.add(writeIntoFile);
-        writeIntoFile.addActionListener(_-> loadFile2());
+        writeIntoFile.addActionListener(e -> {
+            loadFile();
+            writeIntoFile(selectedFile);
+            renderTable();
+        });
 
-        JMenuItem numPpl = new JMenuItem("Počet lidí");
+                JMenuItem numPpl = new JMenuItem("Počet lidí");
         mbar.add(numPpl);
-        numPpl.addActionListener(_-> getPplNum());
+        numPpl.addActionListener(e-> getPplNum());
 
-        JMenuItem numPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen = new JMenuItem("Počet lidí, jejichž číslo přesahuje hodnotu čísla deset");
-        mbar.add(numPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen);
-        numPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen.addActionListener(_-> getnumPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen());
+        JMenuItem numPplMore = new JMenuItem("> 10");
+        mbar.add(numPplMore);
+        numPplMore.addActionListener(e-> getHigherNum());
     }
 
     private void getPplNum() {
@@ -48,14 +58,14 @@ public class UcastniciForm extends JFrame {
         JOptionPane.showMessageDialog(this, "počet lidí: " + numOfPpl);
     }
 
-    private void getnumPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen() {
-        int getnumPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen123456789 = 0;
+    private void getHigherNum() {
+        int numOfPpl = 0;
         for (Ucastnik s : seznamPanicu){
             if(s.getStartNum() > 10){
-                getnumPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen123456789++;
+                numOfPpl++;
             }
         }
-        JOptionPane.showMessageDialog(this, "počet lidí: " + getnumPplIfTheirStartingNumberIsHighterThanTheNumericalValueOfTen123456789);
+        JOptionPane.showMessageDialog(this, "počet lidí: " + numOfPpl);
     }
 
     public void loadFile(){
@@ -64,21 +74,10 @@ public class UcastniciForm extends JFrame {
         int result = fc.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION){
             selectedFile = fc.getSelectedFile();
-            readFile(selectedFile);
-            renderTable();
-        }
-    }
-    public void loadFile2(){
-        JFileChooser fc = new JFileChooser(".");
-        fc.setFileFilter(new FileNameExtensionFilter("text", "txt"));
-        int result = fc.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION){
-            selectedFile = fc.getSelectedFile();
-            writeIntoFile(selectedFile);
-            renderTable();
         }
     }
     public void readFile(File selectedFile){
+        seznamPanicu.clear();
         try(Scanner sc = new Scanner(new BufferedReader(new FileReader(selectedFile)))){
             while (sc.hasNextLine()){
                 String line = sc.nextLine();
